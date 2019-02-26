@@ -1,4 +1,5 @@
 module.exports = function(app, fs) {
+  // 기본 접속 시 페이지
   app.get("/", function(req, res) {
     res.render("index", {
       title: "MY HOMEPAGE",
@@ -6,6 +7,7 @@ module.exports = function(app, fs) {
     });
   });
 
+  // 사용자 리스트 조회
   app.get("/list", function(req, res) {
     fs.readFile(__dirname + "/../data/user.json", "utf8", function(err, data) {
       console.log(data);
@@ -13,6 +15,7 @@ module.exports = function(app, fs) {
     });
   });
 
+  // 특정 사용자 조회 (user.json 참조)
   app.get("/getUser/:username", function(req, res) {
     fs.readFile(__dirname + "/../data/user.json", "utf8", function(err, data) {
       var users = JSON.parse(data);
@@ -20,6 +23,7 @@ module.exports = function(app, fs) {
     });
   });
 
+  // 사용자 추가 (user.json 양식 참조)
   app.post("/addUser/:username", function(req, res) {
     var result = {};
     var username = req.params.username;
@@ -59,6 +63,7 @@ module.exports = function(app, fs) {
     });
   });
 
+  // 사용자 정보 수정 (user.json 양식 참조)
   app.put("/updateUser/:username", function(req, res) {
     var result = {};
     var username = req.params.username;
@@ -90,6 +95,7 @@ module.exports = function(app, fs) {
     });
   });
 
+  // 사용자 정보 삭제
   app.delete("/deleteUser/:username", function(req, res) {
     var result = {};
     //LOAD DATA
